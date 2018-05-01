@@ -6,7 +6,7 @@
 from functools import reduce
 
 fd = open('theprince.txt', 'r')
-contents = fd.read()
+contents = fd.read().lower().strip('!''$''?''/''['']'',''.''&''-')
 fd.close()
 
 text = contents.split()
@@ -24,8 +24,9 @@ def freqW(word):
 
 #returns number of times a group of words appears
 
-def freqG(group):
-    print(reduce((lambda x,y:x+y),[1 for x in text if x in group]))
+def freqG(phrase):
+    n = len(phrase.split())
+    print reduce((lambda x, y: x + y), [1 if phrase == reduce((lambda x, y: x + " " + y), text[text.index(x):text.index(x)+n]) else 0 for x in text ])
 
 
 #returns most common word
@@ -36,5 +37,5 @@ def freq():
 
 #function test cases
 freqW("prince")
-freqG(["rule", "over"])
+freqG("hello there ia masdfasdf ")
 freq()
